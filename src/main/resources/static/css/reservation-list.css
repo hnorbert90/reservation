@@ -1,5 +1,121 @@
 @CHARSET "ISO-8859-1";
 
 .message {
-    display: none;
+	display: none;
+	padding: 5%;
+	background: #4CAF50;
+	color: white;
+	border-radius: 2em 0.3em 2em 0.1em;
+}
+
+canvas {
+	width: 100vw;
+	height: 100vh;
+	display: block;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: -9999;
+	transition: stroke 5s;
+}
+
+#reservation {
+	position: fixed;
+	top: 80%;
+	left: 80%;
+	text-align: center;
+}
+
+#back {
+	position: fixed;
+	top: 10%;
+	left: 10%;
+	text-align: center;
+}
+
+#table tr {
+	background-color: white;
+}
+
+.button {
+	font-size: 1em;
+	border: 0px solid;
+	padding: 5px;
+	background: #4CAF50;
+	color: white;
+	border-radius: 0.3em 0.3em 0.1em 0.1em;
+	margin: 0.5em;
+}
+
+.button>a:link {
+	text-decoration: none;
+	color: white;
+}
+
+.button>a:visited {
+	text-decoration: none;
+	color: white;
+}
+
+.button:hover {
+	background: #4CAF50;
+	box-shadow: 3px 3px 10px #9CAF96;
+}
+
+.container {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+#table tr:nth-child(even) {
+	background-color: #f2f2f2;
+}
+
+#table tr:hover {
+	background-color: #ddd;
+}
+
+#table th {
+	text-align: left;
+	background-color: #4CAF50;
+	color: white;
+	text-align: center;
+	padding: 10px 10px;
+	white-space: nowrap;
+	user-select: none;
+}
+
+#table {
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	border-spacing: 0; border-collapse : collapse;
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.action:hover {
+	color: red;
+}
+
+caption {
+	font-size: 1em;
+	text-align: left;
+	background-color: #4CAF50;
+	border-top-right-radius: 100%;
+	width: 98%;
+	color: white;
+	font-weight: bold;
+	user-select: none;
+	padding: 1%;
+}
+
+.action {
+	user-select: none;
+}
+
+#table td {
+	text-align: center;
+	white-space: nowrap;
+	padding: 5px 10px;
 }
