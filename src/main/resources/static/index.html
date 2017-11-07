@@ -1,21 +1,34 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>Reservation Portal</title>
-  <link rel="stylesheet" type="text/css" href="css/index.css" />
-  
+<meta charset="UTF-8">
+<title>Reservation Portal</title>
+<link rel="stylesheet" type="text/css" href="css/index.css" />
+
+
 </head>
 <body>
 
-<canvas id="canvas"></canvas>
+	<canvas id="canvas"></canvas>
 
-<div class="container">
-<div class="buttons">
-  <div id="reservation-list" class="button" ><a href="/reservation-list.html">List of reservations</a></div>
-  <div id="reservation" class="button"><a href="/reservation.html">Make a reservation</a></div>
-</div>
-</div>
-<script type='text/javascript' src='js/background.js'></script>
+	<div class="container">
+		<div class="buttons">
+			<div id="reservation-list" class="button">
+				<a href="/reservation-list.html">List of reservations</a>
+			</div>
+			<div id="reservation" class="button">
+				<a href="/reservation.html">Make a reservation</a>
+			</div>
+		</div>
+	</div>
+	<script type='text/javascript' src='js/background.js'></script>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function() {
+		$("canvas").css("display", "none");
+		$("canvas").fadeIn(2000);
+	});
+</script>
+
 </body>
 </html>

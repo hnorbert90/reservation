@@ -9,7 +9,10 @@
   
 
 $(document).ready(function() {
-
+	$(".container").css("display", "none");
+	$(".container").fadeIn(1000);
+	$("canvas").css("display", "none");
+	$("canvas").fadeIn(1000);
   function loadAndDisplayListOfReservations() {
     
     $('.message').hide();

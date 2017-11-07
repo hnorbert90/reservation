@@ -18,7 +18,11 @@
   
 
 $(document).ready(function() {
-
+	$("#reservationForm").css("display", "none");
+	$("#reservationForm").fadeIn(1000);
+	$("canvas").css("display", "none");
+	$("canvas").fadeIn(1000);
+	
   $("#submitReservation").click(function(e) {     
     e.preventDefault();           
 
