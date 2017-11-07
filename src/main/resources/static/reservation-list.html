@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Reservations</title>
+  <link rel="stylesheet" type="text/css" href="/css/reservation-list.css" />
+</head>
+<body>
+
+  <div id="system-error" class="message">We are sorry, retrieving the list of reservations failed - please try again later.</div></h2>
+  <div id="action-error" class="message">We are sorry, we were unable to execute your action - please try again later.</div></h2>
+
+  <div id="reservation-list">
+    <!-- the content will be placed here -->
+  </div>    
+
+  <script id="reservation-list-template" type="text/x-handlebars-template">  
+    <table>
+      <caption>List of reservations</caption>
+      <thead>
+        <tr>
+          <th>Reservation ID</th>
+          <th>Facility ID</th>
+          <th>Start Date</th>
+          <th>End Date</th>
+          <th>Reserved by</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+    {{#each content}}  
+        <tr>                    
+          <td>{{id}}</td>
+          <td>{{resourceId}}</td>
+          <td>{{startDate}}</td>            
+          <td>{{endDate}}</td> 
+          <td>{{owner}}</td> 
+          <td><a href="#" class="action" reservationId="{{id}}">Cancel</a>           
+        </tr>
+    {{/each}}
+      </tbody>
+    </table>
+  </script>
+  
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script src="js/lib/handlebars-v3.0.0.js"></script>
+  <script src="js/reservation-list.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,11 @@
+@CHARSET "ISO-8859-1";
+
+label,
+button {
+    display: block;
+    margin-top: 15px;
+}
+
+.message {
+    display: none;
+}
