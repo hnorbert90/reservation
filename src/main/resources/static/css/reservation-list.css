@@ -19,6 +19,15 @@ canvas {
 	transition: stroke 5s;
 }
 
+.pagelink:hover{
+	cursor: pointer;
+	color: blue;
+}
+
+.pagelink{
+	user-select: none;
+}
+
 #reservation {
 	position: fixed;
 	top: 80%;
@@ -117,6 +126,7 @@ caption {
 
 #table td {
 	text-align: center;
-	white-space: nowrap;
-	padding: 5px 10px;
+	width:50px; 
+	height:15px;
+  	word-wrap:break-word;
 }

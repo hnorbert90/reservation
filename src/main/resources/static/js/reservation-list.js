@@ -4,21 +4,56 @@
 
 "use strict";
 
+function romanize (num) {
+    if (!+num)
+        return NaN;
+    var digits = String(+num).split(""),
+        key = ["","C","CC","CCC","CD","D","DC","DCC","DCCC","CM",
+               "","X","XX","XXX","XL","L","LX","LXX","LXXX","XC",
+               "","I","II","III","IV","V","VI","VII","VIII","IX"],
+        roman = "",
+        i = 3;
+    while (i--)
+        roman = (key[+digits.pop() + (i * 10)] || "") + roman;
+    return Array(+digits.join("") + 1).join("M") + roman;
+}
+
+var pages=[[]];
+var jsonData;
+function generatePageLinks(pageNumber){ 
+		  $('#pagebar').empty();
+		  if((pageNumber)>0)
+		  $('#pagebar').append("<a class=\"pagelink\" onClick=\"goToPage("+
+				  (pageNumber-1)+");\"><i style=\"transform: rotateZ(180deg);\"class=\"material-icons\">keyboard_tab</i></a>");
+		  $('#pagebar').append("<b style=\"font-size:1.5em;\">"+romanize(pageNumber+1)+"</b>"); 
+		  if((pageNumber+1<pages.length))
+		  $('#pagebar').append("<a class=\"pagelink\" onClick=\"goToPage("+
+				  (pageNumber+1)+");\"><i class=\"material-icons\">keyboard_tab</i></a>");   
+	  
+}
+
+function goToPage(pageNumber) {
+	
+	var reservationListTemplateSource = $("#reservation-list-template").html();      // get the template's html source
+	var reservationListTemplate = Handlebars.compile(reservationListTemplateSource); // initialize Handlebars template
+	jsonData.content=pages[pageNumber];
+	var h = reservationListTemplate(jsonData);   
+    $("#reservation-list").empty();
+    $("#reservation-list").append(h);
+    generatePageLinks(pageNumber);
+}
+
 (function() {
-  
-  
 
 $(document).ready(function() {
 	$(".container").css("display", "none");
 	$(".container").fadeIn(1000);
 	$("canvas").css("display", "none");
 	$("canvas").fadeIn(1000);
+
   function loadAndDisplayListOfReservations() {
     
     $('.message').hide();
-    
-    var reservationListTemplateSource = $("#reservation-list-template").html();      // get the template's html source
-    var reservationListTemplate = Handlebars.compile(reservationListTemplateSource); // initialize Handlebars template
     
     var currentTime = new Date();
 	const DAYS = 30; 
@@ -26,22 +61,32 @@ $(document).ready(function() {
 	  	afterThirtyDays.setDate(afterThirtyDays.getDate() + DAYS);
 	  	
     $.ajax({
-      url : "http://localhost/api/reservations/from-"+currentTime.toISOString().substring(0, 10)+"/to-"+afterThirtyDays.toISOString().substring(0, 10)+"/",
+      url : "/api/reservations/from-"
+    	  +currentTime.toISOString().substring(0, 10)+"/to-"
+    	  +afterThirtyDays.toISOString().substring(0, 10)
+    	  +"/"+"?page=0&size=10000&sort=startDate,desc",
       dataType : 'json',
       async : true, 
       cache : false,
       timeout : 5000, 
-
       data : {},
+      
       success : function(response) { 
-    	  
-        response.content.sort(function(a, b) { //sort by startDate
-        	return -(new Date(b.startDate) - new Date(a.startDate));
-    	});
-        
-        var h = reservationListTemplate(response);     // generate HTML from the object using the template
-        $("#reservation-list").empty();
-        $("#reservation-list").append(h);              // insert the generated HTML into the document
+    	  pages=[[]];
+    	  var page=[];
+    	  var index=0;
+    	  const ELEMENT_PER_PAGE=10;
+    	  for(var i=0;i<response.content.length;i++){
+    		  if(i%ELEMENT_PER_PAGE==0&i!=0){
+    			  pages[index]=page;
+        		  page=[];
+    			  index++;  
+    		  } 
+    		  page.push(response.content[i]);
+    	  }
+    	  pages[index]=page;
+    	  jsonData=response;
+    	  goToPage(0) 
       },
       error : function(XMLHttpRequest, textStatus, errorThrown) {
         console.log("reservation list retrieval failed ... HTTP status code: " + XMLHttpRequest.status + ' message ' + XMLHttpRequest.responseText);

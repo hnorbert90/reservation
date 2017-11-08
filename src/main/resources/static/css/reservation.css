@@ -22,7 +22,12 @@ canvas {
 	user-select: none;
 	box-shadow: none;
 }
-
+#pagebar{
+	text-align:center;
+	padding: 5px;
+	background: #4CAF50;
+	color: white;
+}
 .button>a:link {
 	text-decoration: none;
 	color: white;
