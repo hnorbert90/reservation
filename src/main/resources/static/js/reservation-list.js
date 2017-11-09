@@ -36,8 +36,14 @@ function goToPage(pageNumber) {
 	
 	var reservationListTemplateSource = $("#reservation-list-template").html();      // get the template's html source
 	var reservationListTemplate = Handlebars.compile(reservationListTemplateSource); // initialize Handlebars template
+	if(pages[pageNumber].length<=10)
+		{
+		for(var i = pages[pageNumber].length ; i < 10;i++){
+			pages[pageNumber][i]=[];
+		}
+		}
 	jsonData.content=pages[pageNumber];
-	var h = reservationListTemplate(jsonData);   
+	var h = reservationListTemplate(jsonData);  
     $("#reservation-list").empty();
     $("#reservation-list").append(h);
     generatePageLinks(pageNumber);
@@ -97,7 +103,7 @@ $(document).ready(function() {
   
   $("body").on('click', '.action', function(e) { 
     var reservationId = $(this).attr('reservationId');
-    
+    if(reservationId!=""){
     $.ajax({
       url : '/api/reservations/' + encodeURIComponent(reservationId),                    
       method: 'DELETE',                           
@@ -116,9 +122,11 @@ $(document).ready(function() {
         $('#action-error').fadeIn();
       }
     });
+  }
   });
   
   loadAndDisplayListOfReservations();
+  
 });
 
 
