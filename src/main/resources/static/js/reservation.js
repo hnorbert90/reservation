@@ -19,7 +19,6 @@ function validateForm() {
 }else{ 
 	return true;
 }
-
 }
 function sortTable() {
 	  var table, rows, switching, i, x, y, shouldSwitch;
@@ -43,9 +42,7 @@ function sortTable() {
 	}
 
 (function() {
-	
 	var rsId;
-	
 	function getColor(value){
 	    //value from 0 to 1
 	    var hue=((1-value)*120).toString(10);
@@ -53,11 +50,10 @@ function sortTable() {
 	}
 	
 	function loadStatistic(){
-		
 		 $.getJSON( "/api/reservations/?page=0&size=10000", function( data ) {
 			 var listOfResourceIds=new Set();
 			 $("#statistic>table>tbody").empty();
-			  $("#statistic>table>tbody").append("<tr><th>Facility Id:</th><th>Availablity:</th></tr>");
+			 $("#statistic>table>tbody").append("<tr><th>Facility Id:</th><th>Availablity:</th></tr>");
 				  for(var i=0; i<data.content.length;i++){
 					  listOfResourceIds.add(data.content[i].resourceId);
 				  }
@@ -71,7 +67,8 @@ function sortTable() {
 					  for(var j=0; j<response.content.length;j++){
 						  var startDate = formatDate(response.content[j].startDate);
 						  var endDate = formatDate(response.content[j].endDate);
-						  for (var d = new Date(startDate); d <= new Date(endDate) && d<=afterThirtyDays; d.setDate(d.getDate() + 1)) {
+						  for (var d = new Date(startDate); d <= new Date(endDate) 
+						  		&& d<=afterThirtyDays; d.setDate(d.getDate() + 1)) {
 							  if(d>=currentTime){
 								  days++;	
 							  }
@@ -83,13 +80,10 @@ function sortTable() {
 					  $("#statistic>table>tbody").append("<tr "+style+"value="+percentage+" resourceId=\""+resourceId+"\""+
 							  " class=\"statistictablerow\"><td >"+resourceId+"</td><td>"
 							  +percentage+"%</td>"+"</tr>");
-					  
 						});
 				  });
 					});
-		 
 	}
-	
 	
 	var SelectedDates = {};
 	var SeletedText = {};
@@ -102,14 +96,11 @@ function sortTable() {
 	   return value.substring(5,7)+ "/" + value.substring(8, 10) + "/" + value.substring(0, 4);
 	}
 
-
 	  function collectFormInput() {
-	    
 	    var reservationFormValues = {};
 	    $.each($('#reservationForm').serializeArray(), function(i, field) {
 	      reservationFormValues[field.name] = field.value;
 	    });
-	    
 	    return reservationFormValues;
 	  }
 
@@ -118,7 +109,8 @@ function sortTable() {
 		}
 
 	  function updateReservatedDates(facilityId){
-		  $.getJSON( "/api/reservations/resource/"+facilityId+"/?page=0&size=10000&sort=startDate,desc", function( data ) {
+		  $.getJSON( "/api/reservations/resource/"+facilityId+
+				  "/?page=0&size=10000&sort=startDate,desc", function( data ) {
 				SelectedDates=[[]];
 				  for(var i=0; i<data.content.length;i++){
 					  var startDate = formatDate(data.content[i].startDate);
@@ -130,13 +122,13 @@ function sortTable() {
 				  }
 					});
 	  }
-	  
+
 	  function clearFields(){
 		  $("*[type=text]").val("");
 	  }
-	  
-	  
+	    
 $(document).ready(function() {
+	$(".message").hide();
 	$("#reservationForm").css("display", "none");
 	$("#reservationForm").fadeIn(1000);
 	$("canvas").css("display", "none");
@@ -181,7 +173,9 @@ $(document).ready(function() {
 	    document.onmousemove = null;
 	  }
 	}
+	
 	loadStatistic();
+	
 	$('.txtDate, #datepicker').datepicker({
         beforeShowDay: function(date) {
             var Highlight = SelectedDates[date];
@@ -194,10 +188,8 @@ $(document).ready(function() {
             }
         },dateFormat: 'yy-mm-dd'
     });
-	
-	 		  
-	  var clickedId;
-	 
+		  
+	  var clickedId; 
 	 $(document).on('click','tr[resourceId]',function() {
 		 $('#facilityid').val(this.getAttribute("resourceId"));
 		 clickedId=this.getAttribute("resourceId");
@@ -281,15 +273,15 @@ $(document).ready(function() {
       },
                                                 
       error : function(XMLHttpRequest, textStatus, errorThrown) {   
-        console.log("reservation request failed ... HTTP status code: " + XMLHttpRequest.status + ' message ' + XMLHttpRequest.responseText);
-        
-        var errorCodeToHtmlIdMap = {400 : '#validation-error', 405 : '#validation-error', 409 : '#conflict-error' , 500: '#system-error'};
+        console.log("reservation request failed ... HTTP status code: " 
+        		+ XMLHttpRequest.status + ' message ' + XMLHttpRequest.responseText);
+        var errorCodeToHtmlIdMap = {400 : '#validation-error',
+        		405 : '#validation-error', 409 : '#conflict-error' , 500: '#system-error'};
         var id = errorCodeToHtmlIdMap[XMLHttpRequest.status];
         
         if (!id) {
           id =  errorCodeToHtmlIdMap[500]; 
         }
-        
         $(id).fadeIn();
       }
     });

@@ -6,22 +6,17 @@
   <link rel="stylesheet" type="text/css" href="/css/reservation-list.css" />
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
-
 </head>
 <body>
 <div id="back" class="button"><a href="/index.html">Back</a></div>
 <div id="reservation" class="button"><a href="/reservation.html">Reservation</a></div>
-
 <canvas id="canvas"></canvas>
-
 <div class="container">
   <div id="system-error" class="message">We are sorry, retrieving the list of reservations failed - please try again later.</div>
   <div id="action-error" class="message">We are sorry, we were unable to execute your action - please try again later.</div>
-
   <div id="reservation-list">
     <!-- the content will be placed here -->
   </div>    
-
   <script id="reservation-list-template" type="text/x-handlebars-template">  
     <table id="table">
       <caption>List of reservations</caption>
@@ -52,11 +47,9 @@
    <div id="pagebar" style="text-align:center;padding: 10px;background: #4CAF50;color: white;"></div>
   <div style="text-align:center;padding: 10px;background: #4CAF50;color: white; border-bottom-left-radius:100%;"></div>
   </div>
-
   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   <script src="js/lib/handlebars-v3.0.0.js"></script>
   <script src="js/reservation-list.js"></script>
   <script type='text/javascript' src='js/background.js'></script>
-
 </body>
 </html>

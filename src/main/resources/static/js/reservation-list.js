@@ -3,7 +3,6 @@
  */
 
 "use strict";
-
 function romanize (num) {
     if (!+num)
         return NaN;
@@ -24,12 +23,12 @@ function generatePageLinks(pageNumber){
 		  $('#pagebar').empty();
 		  if((pageNumber)>0)
 		  $('#pagebar').append("<a class=\"pagelink\" onClick=\"goToPage("+
-				  (pageNumber-1)+");\"><i style=\"transform: rotateZ(180deg);\"class=\"material-icons\">keyboard_tab</i></a>");
-		  $('#pagebar').append("<b style=\"font-size:1.5em;\">"+romanize(pageNumber+1)+"</b>"); 
+				  (pageNumber-1)+");\"><i style=\"transform: rotateZ(180deg);" +
+				  		"\"class=\"material-icons\">keyboard_tab</i></a>");
+		  $('#pagebar').append("<b style=\"font-size:1.5em; user-select: none;\">"+romanize(pageNumber+1)+"</b>"); 
 		  if((pageNumber+1<pages.length))
 		  $('#pagebar').append("<a class=\"pagelink\" onClick=\"goToPage("+
-				  (pageNumber+1)+");\"><i class=\"material-icons\">keyboard_tab</i></a>");   
-	  
+				  (pageNumber+1)+");\"><i class=\"material-icons\">keyboard_tab</i></a>");     
 }
 
 function goToPage(pageNumber) {
@@ -48,13 +47,11 @@ function goToPage(pageNumber) {
     $("#reservation-list").append(h);
     generatePageLinks(pageNumber);
 }
-
   
 (function() {
-
-
 	
 $(document).ready(function() {
+	$(".message").hide();
 	$(".container").css("display", "none");
 	$(".container").fadeIn(1000);
 	$("canvas").css("display", "none");
@@ -98,13 +95,12 @@ $(document).ready(function() {
 		    	  goToPage(0) 
 		      },
 		      error : function(XMLHttpRequest, textStatus, errorThrown) {
-		        console.log("reservation list retrieval failed ... HTTP status code: " + XMLHttpRequest.status + ' message ' + XMLHttpRequest.responseText);
+		        console.log("reservation list retrieval failed ... HTTP status code: " +
+		        		XMLHttpRequest.status + ' message ' + XMLHttpRequest.responseText);
 		        $('#system-error').fadeIn();
 		      }
 		    });
 		  }
-	
-
   
   $("body").on('click', '.action', function(e) { 
     var reservationId = $(this).attr('reservationId');
@@ -123,16 +119,14 @@ $(document).ready(function() {
       },
                                                 
       error : function(XMLHttpRequest, textStatus, errorThrown) {   
-        console.log("reservation request failed ... HTTP status code: " + XMLHttpRequest.status + ' message ' + XMLHttpRequest.responseText);
+        console.log("reservation request failed ... HTTP status code: " +
+        		XMLHttpRequest.status + ' message ' + XMLHttpRequest.responseText);
         $('#action-error').fadeIn();
       }
     });
   }
   });
-  
   loadAndDisplayListOfReservations();
-  
 });
-
 
 })();

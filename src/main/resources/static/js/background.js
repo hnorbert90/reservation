@@ -9,8 +9,7 @@ function resize(canvas) {
   }
 }
 
-function render(time) {
-  time *= 0.001;
+function render() {
   resize(ctx.canvas);
   ctx.save();
   var x = ctx.canvas.width;
@@ -20,21 +19,14 @@ function render(time) {
   var pointPositionX=0;
   var pointPositionY=y/5;
 
-
- 
-  
   ctx.strokeStyle = "#4CAF50";
   ctx.beginPath();
   ctx.moveTo(0,y/5);
   ctx.lineTo(x/2,y/5);
   ctx.lineTo(x/2,y*2/5);
-
   ctx.moveTo(x/2,y*3/5);
   ctx.lineTo(x/2,y*4/5);
   ctx.lineTo(x,y*4/5);
   ctx.stroke()
   ctx.restore();
-
-  requestAnimationFrame(render);
 }
-requestAnimationFrame(render);
