@@ -29,4 +29,6 @@ function render() {
   ctx.lineTo(x,y*4/5);
   ctx.stroke()
   ctx.restore();
+  requestAnimationFrame(render);
 }
+requestAnimationFrame(render);
