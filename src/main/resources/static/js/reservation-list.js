@@ -49,57 +49,62 @@ function goToPage(pageNumber) {
     generatePageLinks(pageNumber);
 }
 
+  
 (function() {
 
+
+	
 $(document).ready(function() {
 	$(".container").css("display", "none");
 	$(".container").fadeIn(1000);
 	$("canvas").css("display", "none");
 	$("canvas").fadeIn(1000);
+	
+	function loadAndDisplayListOfReservations() {
+	    
+		  $('.message').hide();
+		    
+		    var currentTime = new Date();
+			const DAYS = 30; 
+			var afterThirtyDays=new Date();
+			  	afterThirtyDays.setDate(afterThirtyDays.getDate() + DAYS);
+			  	
+		    $.ajax({
+		      url : "/api/reservations/from-"
+		    	  +currentTime.toISOString().substring(0, 10)+"/to-"
+		    	  +afterThirtyDays.toISOString().substring(0, 10)
+		    	  +"/"+"?page=0&size=10000&sort=startDate,desc",
+		      dataType : 'json',
+		      async : true, 
+		      cache : false,
+		      timeout : 5000, 
+		      data : {},
+		      
+		      success : function(response) { 
+		    	  pages=[[]];
+		    	  var page=[];
+		    	  var index=0;
+		    	  const ELEMENT_PER_PAGE=10;
+		    	  for(var i=0;i<response.content.length;i++){
+		    		  if(i%ELEMENT_PER_PAGE==0&i!=0){
+		    			  pages[index]=page;
+		        		  page=[];
+		    			  index++;  
+		    		  } 
+		    		  page.push(response.content[i]);
+		    	  }
+		    	  pages[index]=page;
+		    	  jsonData=response;
+		    	  goToPage(0) 
+		      },
+		      error : function(XMLHttpRequest, textStatus, errorThrown) {
+		        console.log("reservation list retrieval failed ... HTTP status code: " + XMLHttpRequest.status + ' message ' + XMLHttpRequest.responseText);
+		        $('#system-error').fadeIn();
+		      }
+		    });
+		  }
+	
 
-  function loadAndDisplayListOfReservations() {
-    
-    $('.message').hide();
-    
-    var currentTime = new Date();
-	const DAYS = 30; 
-	var afterThirtyDays=new Date();
-	  	afterThirtyDays.setDate(afterThirtyDays.getDate() + DAYS);
-	  	
-    $.ajax({
-      url : "/api/reservations/from-"
-    	  +currentTime.toISOString().substring(0, 10)+"/to-"
-    	  +afterThirtyDays.toISOString().substring(0, 10)
-    	  +"/"+"?page=0&size=10000&sort=startDate,desc",
-      dataType : 'json',
-      async : true, 
-      cache : false,
-      timeout : 5000, 
-      data : {},
-      
-      success : function(response) { 
-    	  pages=[[]];
-    	  var page=[];
-    	  var index=0;
-    	  const ELEMENT_PER_PAGE=10;
-    	  for(var i=0;i<response.content.length;i++){
-    		  if(i%ELEMENT_PER_PAGE==0&i!=0){
-    			  pages[index]=page;
-        		  page=[];
-    			  index++;  
-    		  } 
-    		  page.push(response.content[i]);
-    	  }
-    	  pages[index]=page;
-    	  jsonData=response;
-    	  goToPage(0) 
-      },
-      error : function(XMLHttpRequest, textStatus, errorThrown) {
-        console.log("reservation list retrieval failed ... HTTP status code: " + XMLHttpRequest.status + ' message ' + XMLHttpRequest.responseText);
-        $('#system-error').fadeIn();
-      }
-    });
-  }
   
   $("body").on('click', '.action', function(e) { 
     var reservationId = $(this).attr('reservationId');

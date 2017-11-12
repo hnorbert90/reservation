@@ -1,6 +1,6 @@
 @CHARSET "ISO-8859-1";
 
-canvas {
+#canvas {
 	width: 100vw;
 	height: 100vh;
 	display: block;
@@ -10,6 +10,72 @@ canvas {
 	z-index: -9999;
 	transition: stroke 5s;
 }
+
+
+
+#datepicker{
+	position:absolute;
+	z-index:10;
+	display:none;
+}
+label{
+	display:block;
+	font-size:1.25em;
+	text-align:center;
+}
+
+#statistic{
+	top: 30%;
+	left: 5%;
+	border-radius:5px 5px 5px;
+	position: absolute;
+    z-index: 9;
+    background-color: #f1f1f1;
+    border: 1px solid #d3d3d3;
+    text-align: center;
+}
+
+
+#statisticheader{
+	user-select: none;
+	padding: 10px;
+    cursor: move;
+    z-index: 10;
+    background-color: #45a049;
+    color: #fff;
+}
+
+#statistic>table{
+	width:100%;
+}
+
+tr[resourceId]{
+	cursor:cell;
+}
+
+.Highlighted a{
+   background-color : #ff000f !important;
+   background-image :none !important;
+   color: White !important;
+   font-weight:bold !important;
+   font-size: 12pt;
+   cursor:no-drop;
+}
+
+/* Interaction states
+----------------------------------*/
+.ui-state-default,
+.ui-widget-content .ui-state-default,
+.ui-widget-header .ui-state-default,
+.ui-button,
+
+/* We use html here because we need a greater specificity to make sure disabled
+works properly when clicked or hovered */
+html .ui-button.ui-state-disabled:hover,
+html .ui-button.ui-state-disabled:active {
+	background: #45a049;
+}
+
 
 .button {
 	font-size: 1em;
@@ -22,12 +88,14 @@ canvas {
 	user-select: none;
 	box-shadow: none;
 }
-#pagebar{
-	text-align:center;
+
+#pagebar {
+	text-align: center;
 	padding: 5px;
 	background: #4CAF50;
 	color: white;
 }
+
 .button>a:link {
 	text-decoration: none;
 	color: white;
@@ -55,6 +123,7 @@ canvas {
 	top: 10%;
 	left: 10%;
 	text-align: center;
+	font-size:1.25em;	
 }
 
 .message {
@@ -70,6 +139,7 @@ canvas {
 }
 
 .container {
+	width: 500px;
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -79,29 +149,22 @@ canvas {
 
 input[type=text] {
 	width: 100%;
-	padding: 1% 1%;
+	padding: 3% 3%;
 	margin: 1% 0;
 	display: inline-block;
 	border: 1px solid #ccc;
 	border-radius: 4px;
 	box-sizing: border-box;
+	font-size:1.25em;
+	text-align:center;
 }
 
-input[type=date] {
-	width: 100%;
-	padding: 1% 1%;
-	margin: 1% 0;
-	display: inline-block;
-	border: 1px solid #ccc;
-	border-radius: 4px;
-	box-sizing: border-box;
-}
 
 input[type=submit] {
 	width: 100%;
 	background-color: #4CAF50;
 	color: white;
-	padding: 1% 1%;
+	padding: 2% 2%;
 	margin: 1% 0;
 	border: none;
 	border-radius: 4px;
@@ -114,7 +177,6 @@ input[type=submit]:hover {
 }
 
 div {
-	transform: translate(-1%, 25%);
 	border-radius: 4px;
 	background-color: #f2f2f2;
 	box-shadow: 3px 3px 10px #9CAF96;

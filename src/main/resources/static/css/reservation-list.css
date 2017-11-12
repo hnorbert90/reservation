@@ -30,6 +30,9 @@ td>a{
 	color: blue;
 }
 
+
+
+
 .pagelink{
 	user-select: none;
 }
@@ -107,7 +110,6 @@ td>a{
 	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
 	border-spacing: 0; border-collapse : collapse;
 	width: 100%;
-	border-collapse: collapse;
 }
 
 .action:hover {

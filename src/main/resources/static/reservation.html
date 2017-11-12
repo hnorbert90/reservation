@@ -1,48 +1,87 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>Submit Reservation</title>
- 
+<meta charset="UTF-8">
+<title>Submit Reservation</title>
+
+<!-- sequence is important! reservation.css is overriding some jquery-ui.css values -->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" type="text/css" href="css/reservation.css" />
+
 </head>
 <body>
-<div id="back" class="button"><a href="/index.html">Back</a></div>
-<div id="reservation-list" class="button"><a href="/reservation-list.html">Reservation-list</a></div>
 
-<canvas id="canvas"></canvas>
+	<div id="back" class="button">
+		<a href="/index.html">Back</a>
+	</div>
+	
+	<div id="reservation-list" class="button">
+		<a href="/reservation-list.html">Reservation-list</a>
+	</div>
+
+	<canvas id="canvas"></canvas>
 
 
-<div class="container">
+	<div class="container">
+	
 
-  <form id="reservationForm">
- 
-    <label>Facility ID:</label>
-    <input name="resourceId" type="text" />
+		<form id="reservationForm">
 
-    <label>Start Date:</label>
-    <input name="fromDate"   type="date" />
-  
-    <label>End Date:</label>
-    <input name="toDate"     type="date" />
+			<label>Facility ID:</label> <input name="resourceId" type="text" id="facilityid"/>
 
-    <label style="display:block;">Reserved By:</label>
-    <input name="owner"      type="text" size="64" />
-  
-    <input id="submitReservation" type="submit" value="Place Reservation">
-  
-    <div id="validation-error" class="message" style="background:red;">Reservation failed - please check your input for completeness.</div>
-    <div id="conflict-error"   class="message" style="background:red;">The room is already reserved for this period, please choose a different period.</div>
-    <div id="system-error"     class="message" style="background:red;">Reservation failed - please try again later.</div>
-  </form>
+			<label>Start Date:</label> 
+			<input name="fromDate" type='text' class='txtDate' readonly="true" /> 
+			<label>End Date:</label> 
+			<input name="toDate" type='text' class='txtDate' readonly="true" />
+				
+			<label style="display: block;">Reserved By:</label>
+			<input name="owner"
+				type="text" size="64" /> <input id="submitReservation"
+				type="submit" value="Place Reservation" method="post">
 
-  <div id="reservation-successful-message" class="message" style="background:#4CAF50; ">
-    Your reservation has been successfully processed. Your reservation id is: <b><span id="reservationId" /></span></b>.
-  </div>
-</div>
+			<div id="validation-error" class="message" style="background: red;">Reservation
+				failed - please check your input for completeness.</div>
+			<div id="validation-error-no-resourceId" class="message" style="background: red;">Reservation
+				failed - please give a Facility ID.</div>
+			<div id="validation-error-no-date" class="message" style="background: red;">Reservation
+				failed - please give start/end date.</div>
+			<div id="validation-error-reservation-in-past" class="message" style="background: red;">Reservation
+				failed - you cannot make reservations in the past .</div>
+			<div id="validation-error-no-owner" class="message" style="background: red;">Reservation
+				failed - please give a owner name.</div>
+			<div id="conflict-error" class="message" style="background: red;">The
+				room is already reserved for this period, please choose a different
+				period.</div>
+			<div id="system-error" class="message" style="background: red;">Reservation
+				failed - please try again later.</div>
+		</form>
+		
+		
 
-  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-  <script src="js/reservation.js"></script>
-<script type='text/javascript' src='js/background.js'></script>
+		<div id="reservation-successful-message" class="message"
+			style="background: #4CAF50;">
+			Your reservation has been successfully processed. Your reservation id
+			is: <b><span id="reservationId" /></span></b>.
+		</div>
+
+	</div>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<div id="statistic">
+	<div id="statisticheader">Facilities availablity<br> in next 30 days:</div>
+	<table id="statistictable">
+	<tr>
+	<th>Facility Id:</th>
+	<th>Availablity:</th>
+	</tr>
+	
+	</table>
+	
+	
+	</div>
+	<div id="datepicker"></div>
+    
+     <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>  
+	<script src="js/reservation.js"></script>
+	<script type='text/javascript' src='js/background.js'></script>
 </body>
 </html>
